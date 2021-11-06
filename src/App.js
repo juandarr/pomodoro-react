@@ -2,6 +2,15 @@ import './App.css';
 import './bootstrap.min.css';
 import React from 'react';
 
+
+/**
+ * TODO
+ * 
+ * There is a problem with the up arrow images. The culprit is found in the img section
+ * of the respective up-down buttons, for both kind of events (break and session). 
+ * When defining an image embedded in a button, it is selected as the event.target when clicking over the button. 
+ * Weird behaviors
+ */
 const events = { 0: "session", 1: "break" };
 
 //Title component
@@ -18,12 +27,13 @@ class EventLength extends React.Component {
       <div id={event + "-buttons"} className="d-flex justify-content-evenly align-items-center">
         <button className="btn-link" id={event + "-increment"} data-bs-toggle="tooltip" data-bs-placement="right"
           title={event[0].toUpperCase() + event.slice(1) + " time up"} onClick={this.props.eventTimeController} disabled={this.props.playState} value='+'>
-          <img src="resources/arrow-up.svg" alt={event + " time up"} />
+          UP{/*<img src="resources/arrow-up.svg" alt={event + " time up"} />*/}
         </button>
         <div id={event + "-length"} className="d-flex justify-content-center">{this.props.timeLength}</div>
         <button className="btn-link" id={event + "-decrement"} data-bs-toggle="tooltip" data-bs-placement="right"
           title={event[0].toUpperCase() + event.slice(1) + " time down"} onClick={this.props.eventTimeController} disabled={this.props.playState} value='-'>
-          <img className="down" src="resources/arrow-up.svg" alt={event + " time down"} />
+          DW
+          {/*<img className="down" src="resources/arrow-up.svg" alt={event + " time down"} />*/}
         </button>
       </div></div>);
   }
