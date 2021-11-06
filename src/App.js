@@ -25,15 +25,15 @@ class EventLength extends React.Component {
     return (<div id={event + "-control"} className="d-flex flex-column align-items-center">
       <h2 id={event + "-label"}>{event[0].toUpperCase() + event.slice(1)} <em>length</em></h2>
       <div id={event + "-buttons"} className="d-flex justify-content-evenly align-items-center">
-        <button className="btn-link" id={event + "-increment"} data-bs-toggle="tooltip" data-bs-placement="right"
+        <button className="" id={event + "-increment"} data-bs-toggle="tooltip" data-bs-placement="right"
           title={event[0].toUpperCase() + event.slice(1) + " time up"} onClick={this.props.eventTimeController} disabled={this.props.playState} value='+'>
-          UP{/*<img src="resources/arrow-up.svg" alt={event + " time up"} />*/}
+          {/*<img src="resources/arrow-up.svg" alt={event + " time up"} />*/}UP
         </button>
         <div id={event + "-length"} className="d-flex justify-content-center">{this.props.timeLength}</div>
-        <button className="btn-link" id={event + "-decrement"} data-bs-toggle="tooltip" data-bs-placement="right"
+        <button className="" id={event + "-decrement"} data-bs-toggle="tooltip" data-bs-placement="right"
           title={event[0].toUpperCase() + event.slice(1) + " time down"} onClick={this.props.eventTimeController} disabled={this.props.playState} value='-'>
           DW
-          {/*<img className="down" src="resources/arrow-up.svg" alt={event + " time down"} />*/}
+          {/*btn-link<img className="down" src="resources/arrow-up.svg" alt={event + " time down"} />*/}
         </button>
       </div></div>);
   }
