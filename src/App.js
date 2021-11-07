@@ -1,5 +1,6 @@
 import './App.css';
 import './bootstrap.min.css';
+import './bootstrap-icons.css';
 import React from 'react';
 
 
@@ -15,25 +16,25 @@ const events = { 0: "session", 1: "break" };
 
 //Title component
 const Title = (props) => (<div id="title">
-  <h1><em>my</em>{props.name}</h1>
+  <h1 className="dark-purple"><em className="white">my</em>{props.name}</h1>
 </div>);
 
 class EventLength extends React.Component {
 
   render() {
     const event = this.props.event;
+    const color = this.props.color;
     return (<div id={event + "-control"} className="d-flex flex-column align-items-center">
-      <h2 id={event + "-label"}>{event[0].toUpperCase() + event.slice(1)} <em>length</em></h2>
+      <h2 className={color} id={event + "-label"}>{event[0].toUpperCase() + event.slice(1)} <em>length</em></h2>
       <div id={event + "-buttons"} className="d-flex justify-content-evenly align-items-center">
-        <button className="" id={event + "-increment"} data-bs-toggle="tooltip" data-bs-placement="right"
+        <button className="btn-link" id={event + "-increment"} data-bs-toggle="tooltip" data-bs-placement="right"
           title={event[0].toUpperCase() + event.slice(1) + " time up"} onClick={this.props.eventTimeController} disabled={this.props.playState} value='+'>
-          {/*<img src="resources/arrow-up.svg" alt={event + " time up"} />*/}UP
+          <img src="resources/arrow-up.svg" alt={event + " time up"} />
         </button>
-        <div id={event + "-length"} className="d-flex justify-content-center">{this.props.timeLength}</div>
-        <button className="" id={event + "-decrement"} data-bs-toggle="tooltip" data-bs-placement="right"
+        <div id={event + "-length"} className={"d-flex justify-content-center " + color}>{this.props.timeLength}</div>
+        <button className="btn-link" id={event + "-decrement"} data-bs-toggle="tooltip" data-bs-placement="right"
           title={event[0].toUpperCase() + event.slice(1) + " time down"} onClick={this.props.eventTimeController} disabled={this.props.playState} value='-'>
-          DW
-          {/*btn-link<img className="down" src="resources/arrow-up.svg" alt={event + " time down"} />*/}
+          <img src="resources/arrow-down.svg" alt={event + " time down"} />
         </button>
       </div></div>);
   }
@@ -42,8 +43,8 @@ class EventLength extends React.Component {
 class EventsController extends React.Component {
   render() {
     return (<div id="controllers" className="d-flex justify-content-evenly">
-      <EventLength event="break" timeLength={this.props.breakLength} eventTimeController={this.props.eventTimeController} playState={this.props.playState} />
-      <EventLength event="session" timeLength={this.props.sessionLength} eventTimeController={this.props.eventTimeController} playState={this.props.playState} />
+      <EventLength event="break" color="mustard" timeLength={this.props.breakLength} eventTimeController={this.props.eventTimeController} playState={this.props.playState} />
+      <EventLength event="session" color="blue" timeLength={this.props.sessionLength} eventTimeController={this.props.eventTimeController} playState={this.props.playState} />
     </div>);
   }
 }
@@ -51,14 +52,14 @@ class EventsController extends React.Component {
 class TimerDisplay extends React.Component {
 
   timeRender(ar) {
-    return (ar[0] < 10 ? "0" + ar[0] : ar[0]) + ":" + (ar[1] < 10 ? "0" + ar[1] : ar[1]);
+    return (<div className={this.props.eventIndex === 0 ? "blue" : "mustard"} id="time-left">{(ar[0] < 10 ? ("0" + ar[0]) : ar[0]) + ":" + (ar[1] < 10 ? ("0" + ar[1]) : ar[1])}</div>);
   }
 
   render() {
     const event = this.props.events[this.props.eventIndex];
     return (<div id="timer" className="d-flex flex-column align-items-center justify-content-center">
-      <h2 id="timer-label">{event[0].toUpperCase() + event.slice(1)}</h2>
-      <div id="time-left">{this.timeRender(this.props.timeLeft)}</div>
+      <h2 className={this.props.eventIndex === 0 ? "blue" : "mustard"} id="timer-label">{event[0].toUpperCase() + event.slice(1)}</h2>
+      {this.timeRender(this.props.timeLeft)}
     </div>);
   }
 }
@@ -160,8 +161,8 @@ class Pomodoro extends React.Component {
   }
 
   eventTimeController(event) {
-    const valueEvent = event.target.value;
-    const lengthEvent = event.target.id.split('-')[0] === 'break' ? 'breakLength' : 'sessionLength';
+    const valueEvent = event.target.parentElement.value;
+    const lengthEvent = event.target.parentElement.id.split('-')[0] === 'break' ? 'breakLength' : 'sessionLength';
     const currentEvent = this.props.events[this.state.eventIndex] + 'Length';
     this.setState((state) => {
       const newState = {};

@@ -9,7 +9,7 @@ h1 {
 }
 
 h2 {
-  font-size: 4vmin !important;
+  font-size: 4.5vmin !important;
 }
 
 button {
@@ -21,7 +21,8 @@ button {
 }
 
 button:hover {
-  background-color: blueviolet;
+  background-color:rgb(148, 24, 206);
+  /*blueviolet*/
 
 }
 
@@ -37,7 +38,7 @@ img {
 #pomodoro {
   width: 70vmin;
   height: 50vmin;
-  background-color: fuchsia;
+  background-color: #ff2fa9;
   border-radius: 2vmin;
   padding: 1vmin;
 }
@@ -56,13 +57,13 @@ img {
 }
 
 #break-length {
-  font-size: 3vmin;
+  font-size: 4vmin;
   font-weight: bold;
   width: 6vmin;
 }
 
 #session-length {
-  font-size: 3vmin;
+  font-size: 4vmin;
   font-weight: bold;
   width: 6vmin;
 }
@@ -73,10 +74,6 @@ img {
 
 #session-buttons {
   width: 100%;
-}
-
-.down {
-  transform: rotate(180deg);
 }
 
 #timer-container {
@@ -97,4 +94,41 @@ img {
 
 #timer-label {
   margin-bottom: 0px;
+}
+
+/*Class colors*/
+.white {
+  color: white;
+} 
+
+.blue {
+  color: #3a579a;
+  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;;
+  -webkit-text-stroke-width: 0.06vmin;
+  -webkit-text-stroke-color: black;
+}
+
+.yellow {
+  color: #fffc40;
+  -webkit-text-stroke-width: 0.1vmin;
+  -webkit-text-stroke-color: black;
+}
+
+.mustard {
+  color: #faba61;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  -webkit-text-stroke-width: 0.06vmin;
+  -webkit-text-stroke-color: black;
+}
+
+.coral {
+  color: #ff8172;
+  -webkit-text-stroke-width: 0.05vmin;
+  -webkit-text-stroke-color: black;
+}
+
+.dark-purple {
+  color: #36244f;
+  -webkit-text-stroke-width: 0.1vmin;
+  -webkit-text-stroke-color: black;
 }
