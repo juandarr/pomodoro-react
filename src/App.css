@@ -32,7 +32,7 @@ button:active {
 }
 
 img {
-  width: 5vmin;
+  width: 6vmin;
 }
 
 #pomodoro {
@@ -49,23 +49,25 @@ img {
 }
 
 #break-label {
-  padding-bottom: 1vmin;
+  padding-bottom: 0.5vmin;
 }
 
 #session-label {
-  padding-bottom: 1vmin;
+  padding-bottom: 0.5vmin;
 }
 
 #break-length {
   font-size: 4vmin;
   font-weight: bold;
   width: 6vmin;
+  line-height: 4vmin;
 }
 
 #session-length {
   font-size: 4vmin;
   font-weight: bold;
   width: 6vmin;
+  line-height: 4vmin;
 }
 
 #break-buttons {
@@ -85,21 +87,30 @@ img {
   border: 0.3vmin solid white;
   border-radius: 1vmin;
   width: 60%;
+  margin-top:0.5vmin;
+  padding-top:1vmin;
+  padding-bottom:1vmin;
 }
 
 #time-left {
-  font-size: 10vmin;
+  font-size: 12vmin;
   font-weight: bold;
+  line-height: 12vmin;
 }
 
 #timer-label {
   margin-bottom: 0px;
+  font-size: 5vmin;
 }
 
-/*Class colors*/
+/*Palette of colors*/
 .white {
   color: white;
 } 
+
+.black {
+  color: black;
+}
 
 .blue {
   color: #3a579a;

@@ -58,7 +58,7 @@ class TimerDisplay extends React.Component {
   render() {
     const event = this.props.events[this.props.eventIndex];
     return (<div id="timer" className="d-flex flex-column align-items-center justify-content-center">
-      <h2 className={this.props.eventIndex === 0 ? "blue" : "mustard"} id="timer-label">{event[0].toUpperCase() + event.slice(1)}</h2>
+      <div className={this.props.eventIndex === 0 ? "blue" : "mustard"} id="timer-label">{event[0].toUpperCase() + event.slice(1)}</div>
       {this.timeRender(this.props.timeLeft)}
     </div>);
   }
