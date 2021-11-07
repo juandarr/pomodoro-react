@@ -27,12 +27,14 @@ class EventLength extends React.Component {
     return (<div id={event + "-control"} className="d-flex flex-column align-items-center">
       <h2 className={color} id={event + "-label"}>{event[0].toUpperCase() + event.slice(1)} <em>length</em></h2>
       <div id={event + "-buttons"} className="d-flex justify-content-evenly align-items-center">
-        <button className="btn-link" id={event + "-increment"} data-bs-toggle="tooltip" data-bs-placement="right"
+        <button className="d-flex justify-content-center align-items-center btn-link"
+          id={event + "-increment"} data-bs-toggle="tooltip" data-bs-placement="right"
           title={event[0].toUpperCase() + event.slice(1) + " time up"} onClick={this.props.eventTimeController} disabled={this.props.playState} value='+'>
           <img src="resources/arrow-up.svg" alt={event + " time up"} />
         </button>
         <div id={event + "-length"} className={"d-flex justify-content-center " + color}>{this.props.timeLength}</div>
-        <button className="btn-link" id={event + "-decrement"} data-bs-toggle="tooltip" data-bs-placement="right"
+        <button className="d-flex justify-content-center align-items-center btn-link"
+          id={event + "-decrement"} data-bs-toggle="tooltip" data-bs-placement="right"
           title={event[0].toUpperCase() + event.slice(1) + " time down"} onClick={this.props.eventTimeController} disabled={this.props.playState} value='-'>
           <img src="resources/arrow-down.svg" alt={event + " time down"} />
         </button>
@@ -72,9 +74,9 @@ class TimerController extends React.Component {
 
   render() {
     return (<div id="timer-controls" className="d-flex flex-column justify-content-evenly">
-      <button className="btn-link" data-bs-toggle="tooltip" data-bs-placement="right" id="start_stop"
+      <button className="d-flex justify-content-center align-items-center btn-link" data-bs-toggle="tooltip" data-bs-placement="right" id="start_stop"
         title={(this.props.playState ? "Pause" : "Start") + " timer"} onClick={this.props.timerPlayPause}><img src={"resources/" + (this.props.playState ? "pause" : "play") + ".svg"} alt="play-pause button" /></button>
-      <button className="btn-link" data-bs-toggle="tooltip" data-bs-placement="right" id="reset"
+      <button className="d-flex justify-content-center align-items-center btn-link" data-bs-toggle="tooltip" data-bs-placement="right" id="reset"
         title="Reset timer" onClick={this.props.timerReset}><img src="resources/reset.svg" alt="reset button" /></button>
       <Alarm alarmFile="resources/bell-tower.mp3" />
     </div>);
