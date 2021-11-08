@@ -5,18 +5,18 @@ import React from 'react';
 
 
 /**
- * TODO
- * 
- * There is a problem with the up arrow images. The culprit is found in the img section
+ * TODO: There is a problem with the up arrow images. The culprit is found in the img section
  * of the respective up-down buttons, for both kind of events (break and session). 
  * When defining an image embedded in a button, it is selected as the event.target when clicking over the button. 
  * Weird behaviors
+ * DONE: The problem are not the images or event.target, but the test definitions
  */
+
 const events = { 0: "session", 1: "break" };
 
 //Title component
 const Title = (props) => (<div id="title">
-  <h1 className="dark-purple"><em className="white">my</em>{props.name}</h1>
+  <h1 className="pomodoro-tc2 stroke-thick"><em className="pomodoro-tc1">my</em>{props.name}</h1>
 </div>);
 
 class EventLength extends React.Component {
@@ -25,14 +25,14 @@ class EventLength extends React.Component {
     const event = this.props.event;
     const color = this.props.color;
     return (<div id={event + "-control"} className="d-flex flex-column align-items-center">
-      <h2 className={color} id={event + "-label"}>{event[0].toUpperCase() + event.slice(1)} <em>length</em></h2>
-      <div id={event + "-buttons"} className="d-flex justify-content-evenly align-items-center">
+      <h2 className={'stroke-thin event-label ' + color}>{event[0].toUpperCase() + event.slice(1)} <em>length</em></h2>
+      <div id={event + "-buttons"} className="d-flex justify-content-evenly align-items-center event-buttons">
         <button className="d-flex justify-content-center align-items-center btn-link"
           id={event + "-increment"} data-bs-toggle="tooltip" data-bs-placement="right"
           title={event[0].toUpperCase() + event.slice(1) + " time up"} onClick={this.props.eventTimeController} disabled={this.props.playState} value='+'>
           <img src="resources/arrow-up.svg" alt={event + " time up"} />
         </button>
-        <div id={event + "-length"} className={"d-flex justify-content-center " + color}>{this.props.timeLength}</div>
+        <div id={event + "-length"} className={"d-flex justify-content-center event-length stroke-thin " + color}>{this.props.timeLength}</div>
         <button className="d-flex justify-content-center align-items-center btn-link"
           id={event + "-decrement"} data-bs-toggle="tooltip" data-bs-placement="right"
           title={event[0].toUpperCase() + event.slice(1) + " time down"} onClick={this.props.eventTimeController} disabled={this.props.playState} value='-'>
@@ -45,8 +45,8 @@ class EventLength extends React.Component {
 class EventsController extends React.Component {
   render() {
     return (<div id="controllers" className="d-flex justify-content-evenly">
-      <EventLength event="break" color="mustard" timeLength={this.props.breakLength} eventTimeController={this.props.eventTimeController} playState={this.props.playState} />
-      <EventLength event="session" color="blue" timeLength={this.props.sessionLength} eventTimeController={this.props.eventTimeController} playState={this.props.playState} />
+      <EventLength event="break" color="break-tc" timeLength={this.props.breakLength} eventTimeController={this.props.eventTimeController} playState={this.props.playState} />
+      <EventLength event="session" color="session-tc" timeLength={this.props.sessionLength} eventTimeController={this.props.eventTimeController} playState={this.props.playState} />
     </div>);
   }
 }
@@ -54,13 +54,13 @@ class EventsController extends React.Component {
 class TimerDisplay extends React.Component {
 
   timeRender(ar) {
-    return (<div className={this.props.eventIndex === 0 ? "blue" : "mustard"} id="time-left">{(ar[0] < 10 ? ("0" + ar[0]) : ar[0]) + ":" + (ar[1] < 10 ? ("0" + ar[1]) : ar[1])}</div>);
+    return (<div className={'stroke-thin ' + (this.props.eventIndex === 0 ? "session-tc" : "break-tc")} id="time-left">{(ar[0] < 10 ? ("0" + ar[0]) : ar[0]) + ":" + (ar[1] < 10 ? ("0" + ar[1]) : ar[1])}</div>);
   }
 
   render() {
     const event = this.props.events[this.props.eventIndex];
     return (<div id="timer" className="d-flex flex-column align-items-center justify-content-center">
-      <div className={this.props.eventIndex === 0 ? "blue" : "mustard"} id="timer-label">{event[0].toUpperCase() + event.slice(1)}</div>
+      <div className={'stroke-thin ' + (this.props.eventIndex === 0 ? "session-tc" : "break-tc")} id="timer-label">{event[0].toUpperCase() + event.slice(1)}</div>
       {this.timeRender(this.props.timeLeft)}
     </div>);
   }
@@ -183,7 +183,7 @@ class Pomodoro extends React.Component {
   }
 
   render() {
-    return (<div id="pomodoro" className="d-flex flex-column align-items-center justify-content-evenly">
+    return (<div id="pomodoro" className="d-flex flex-column align-items-center justify-content-evenly colorSet-seriousMood">
       <Title name="Pomodoro" />
       <EventsController breakLength={this.state.breakLength} sessionLength={this.state.sessionLength} eventTimeController={this.eventTimeController} playState={this.state.playState} />
       <Timer timeLeft={this.state.timeLeft} playState={this.state.playState} eventIndex={this.state.eventIndex} timerReset={this.timerReset} timerPlayPause={this.timerPlayPause} />

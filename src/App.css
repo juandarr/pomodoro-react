@@ -1,3 +1,16 @@
+:root {
+  --white-color: white;
+  --black-color: black;
+  --redtone-color:#ff2fa9;
+  --bluetone-color:#3a579a;
+  --purpletone-color: #36244f;
+  --yellowtone-color: #fffc40;;
+  --coral-color: #ff8172;
+  --mustard-color: #faba61;
+  --violet-color: rgb(148, 24, 206);
+  
+}
+
 #root {
   width:100%;
   height: 100vh;
@@ -22,9 +35,7 @@ button {
 }
 
 button:hover {
-  background-color:rgb(148, 24, 206);
-  /*blueviolet*/
-
+  background-color: var(--button-ac);
 }
 
 button:active {
@@ -36,10 +47,39 @@ img {
   width: 6vmin;
 }
 
+/*UI color definition sets*/
+
+.colorSet-seriousMood {
+  --pomodoro-tc1: var(--white-color);
+  --pomodoro-tc2: var(--redtone-color);
+  --break-tc: var(--coral-color);
+  --session-tc: var(--yellowtone-color);
+  --pomodoro-bg: var(--purpletone-color);
+  --button-ac: var(--redtone-color);
+  }
+
+.colorSet-passionVibe {
+  --pomodoro-tc1: var(--white-color);
+  --pomodoro-tc2: var(--purpletone-color);
+  --break-tc: var(--mustard-color);
+  --session-tc: var(--bluetone-color);
+  --pomodoro-bg: var(--redtone-color);
+  --button-ac: var(--violet-color);
+  }
+
+.colorSet-totalDark {
+  --pomodoro-tc1: var(--white-color);
+  --pomodoro-tc2: var(--yellowtone-color);
+  --break-tc: var(--violet-color);
+  --session-tc: var(--redtone-color);
+  --pomodoro-bg: var(--black-color);
+  --button-ac: var(--yellowtone-color);
+}
+
 #pomodoro {
   width: 70vmin;
   height: 55vmin;
-  background-color: #ff2fa9;
+  background-color: var(--pomodoro-bg);
   border-radius: 2vmin;
   padding: 2vmin;
 }
@@ -49,33 +89,18 @@ img {
   padding-bottom: 1vmin;
 }
 
-#break-label {
+.event-label {
   padding-bottom: 0.5vmin;
 }
 
-#session-label {
-  padding-bottom: 0.5vmin;
-}
-
-#break-length {
+.event-length {
   font-size: 4vmin;
   font-weight: bold;
   width: 6vmin;
   line-height: 4vmin;
 }
 
-#session-length {
-  font-size: 4vmin;
-  font-weight: bold;
-  width: 6vmin;
-  line-height: 4vmin;
-}
-
-#break-buttons {
-  width: 100%;
-}
-
-#session-buttons {
+.event-buttons {
   width: 100%;
 }
 
@@ -104,47 +129,45 @@ img {
   font-size: 5vmin;
 }
 
-/*Palette of colors*/
-.white {
-  color: white;
-} 
-
-.black {
-  color: black;
+/*Stroke of text for centain header in UI: e.g., title and main elements*/
+.stroke-thin{
+  -webkit-text-stroke-width: 0.06vmin;
+  -webkit-text-stroke-color: black;
 }
 
-.blue {
-  color: #3a579a;
+.stroke-thick{
+  -webkit-text-stroke-width: 0.1vmin;
+  -webkit-text-stroke-color: black;
+}
+
+/*UI color definitions by element
+* Legend:
+  * tc: text color
+  * bg: background
+  * ac: accent
+*/
+.pomodoro-tc1{
+  color: var(--pomodoro-tc1);
+}
+
+.pomodoro-tc2{
+  color: var(--pomodoro-tc2);
+}
+
+.session-tc {
+  color: var(--session-tc);
   font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;;
-  -webkit-text-stroke-width: 0.06vmin;
-  -webkit-text-stroke-color: black;
+  
 }
 
-.yellow {
-  color: #fffc40;
-  -webkit-text-stroke-width: 0.1vmin;
-  -webkit-text-stroke-color: black;
-}
-
-.mustard {
-  color: #faba61;
+.break-tc {
+  color: var(--break-tc);
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-  -webkit-text-stroke-width: 0.06vmin;
-  -webkit-text-stroke-color: black;
 }
 
-.coral {
-  color: #ff8172;
-  -webkit-text-stroke-width: 0.05vmin;
-  -webkit-text-stroke-color: black;
-}
+/* Responsive design definitions */
 
-.dark-purple {
-  color: #36244f;
-  -webkit-text-stroke-width: 0.1vmin;
-  -webkit-text-stroke-color: black;
-}
-
+/* Restrict size of Pomodoro timer at small screen sizes */
 @media (max-height: 380px) or (max-width: 380px){
 
   #pomodoro {
@@ -176,21 +199,11 @@ img {
   padding-bottom: 3.8px;
 }
 
-#break-label {
+.event-label {
   padding-bottom: 1.9px;
 }
 
-#session-label {
-  padding-bottom: 1.9px;
-}
-
-#break-length {
-  font-size: 15.2px;
-  width: 22.8px;
-  line-height: 15.2px;
-}
-
-#session-length {
+.event-length {
   font-size: 15.2px;
   width: 22.8px;
   line-height: 15.2px;
