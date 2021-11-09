@@ -41,13 +41,11 @@ class EventLength extends React.Component {
           id={event + "-increment"} data-bs-toggle="tooltip" data-bs-placement="right"
           title={event[0].toUpperCase() + event.slice(1) + " time up"} onClick={this.props.eventTimeController} disabled={this.props.playState || this.props.settingsOpen} value='+'>
           <UpArrowIcon color="#000000" />
-          {/*<img src="resources/arrow-up.svg" alt={event + " time up"} />*/}
         </button>
         <div id={event + "-length"} className={"d-flex justify-content-center event-length stroke-thin " + color}>{this.props.timeLength}</div>
         <button className="d-flex justify-content-center align-items-center btn-link"
           id={event + "-decrement"} data-bs-toggle="tooltip" data-bs-placement="right"
           title={event[0].toUpperCase() + event.slice(1) + " time down"} onClick={this.props.eventTimeController} disabled={this.props.playState || this.props.settingsOpen} value='-'>
-          {/*<img src="resources/arrow-down.svg" alt={event + " time down"} />*/}
           <UpArrowIcon color="#000000" down="down" />
         </button>
       </div></div>);
@@ -81,6 +79,9 @@ TimerDisplay.defaultProps = { events: events };
 
 const Alarm = (props) => (<audio id="beep" preload="metadata" src={props.alarmFile} className="alarm-timer"></audio>);
 
+/**This version of the code only load one file, the one chosen via Session alarm sound in Settings
+ * To get access to the most recent version load the code from the main branch
+ */
 
 class TimerController extends React.Component {
 
@@ -237,7 +238,7 @@ class Pomodoro extends React.Component {
         <div id="pomodoro-view" className="d-flex flex-column align-items-center justify-content-evenly">
           <Title name="Pomodoro" />
           <EventsController breakLength={this.state.breakLength} sessionLength={this.state.sessionLength} eventTimeController={this.eventTimeController} playState={this.state.playState} settingsOpen={this.state.settingsOpen} />
-          <Timer timeLeft={this.state.timeLeft} settingsOpen={this.state.settingsOpen} alarmSound={(this.props.events[this.state.eventIndex] === "session") ? this.state.sessionAlarm : this.state.breakAlarm}
+          <Timer timeLeft={this.state.timeLeft} settingsOpen={this.state.settingsOpen} alarmSound={this.state.sessionAlarm}
             playState={this.state.playState} eventIndex={this.state.eventIndex} timerReset={this.timerReset} timerPlayPause={this.timerPlayPause} />
         </div>
         <div id="pomodoro-menu" className="btn-group-vertical" role="group" aria-label="First group">
