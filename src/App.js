@@ -79,7 +79,7 @@ class TimerDisplay extends React.Component {
 }
 TimerDisplay.defaultProps = { events: events };
 
-const Alarm = (props) => (<audio id="beep" preload="metadata" src={props.alarmFile} className="alarm-timer"></audio>);
+const Alarm = (props) => (<audio id={props.id} preload="metadata" src={props.alarmSound} className="alarm-timer"></audio>);
 
 
 class TimerController extends React.Component {
@@ -90,7 +90,8 @@ class TimerController extends React.Component {
         title={(this.props.playState ? "Pause" : "Start") + " timer"} onClick={this.props.timerPlayPause} disabled={this.props.settingsOpen}>{this.props.playState ? (<PauseIcon color="#000000" />) : (<PlayIcon color="#000000" />)}</button>
       <button className="d-flex justify-content-center align-items-center btn-link" data-bs-toggle="tooltip" data-bs-placement="right" id="reset"
         title="Reset timer" onClick={this.props.timerReset} disabled={this.props.settingsOpen}><ResetIcon color="#000000" /></button>
-      <Alarm alarmFile={"resources/sounds/" + this.props.alarmSound} />
+      <Alarm id="beep" alarmSound={"resources/sounds/" + this.props.alarmSession} />
+      <Alarm id="beepBreak" alarmSound={"resources/sounds/" + this.props.alarmBreak} />
     </div>);
   }
 }
@@ -99,7 +100,8 @@ class Timer extends React.Component {
   render() {
     return (<div id="timer-container" className="d-flex justify-content-evenly">
       <TimerDisplay eventIndex={this.props.eventIndex} timeLeft={this.props.timeLeft} />
-      <TimerController playState={this.props.playState} timerReset={this.props.timerReset} timerPlayPause={this.props.timerPlayPause} settingsOpen={this.props.settingsOpen} alarmSound={this.props.alarmSound} />
+      <TimerController playState={this.props.playState} timerReset={this.props.timerReset} timerPlayPause={this.props.timerPlayPause}
+        settingsOpen={this.props.settingsOpen} alarmSession={this.props.alarmSession} alarmBreak={this.props.alarmBreak} />
     </div>);
   }
 }
@@ -119,7 +121,8 @@ class Pomodoro extends React.Component {
   }
 
   componentDidMount() {
-    this.sound = document.getElementById('beep');
+    this.soundSession = document.getElementById('beep');
+    this.soundBreak = document.getElementById('beepBreak');
   }
 
   componentDidUpdate() {
@@ -152,7 +155,12 @@ class Pomodoro extends React.Component {
         if (state.timeLeft[1] === 0 && state.timeLeft[0] > 0) {
           return { timeLeft: [state.timeLeft[0] - 1, 59] };
         } else if (state.timeLeft[1] === 1 && state.timeLeft[0] === 0) {
-          this.sound.play();
+          if (this.props.events[this.state.eventIndex] === 'session') {
+            this.soundSession.play();
+          } else {
+            this.soundBreak.play();
+          }
+
           clearInterval(this.state.timerId);
           return { timeLeft: [0, 0], newEvent: true };
         } else if (state.timeLeft[1] > 0) {
@@ -165,8 +173,14 @@ class Pomodoro extends React.Component {
 
 
   timerReset() {
-    this.sound.pause();
-    this.sound.currentTime = 0;
+    if (this.props.events[this.state.eventIndex] === 'session') {
+      this.soundSession.pause();
+      this.soundSession.currentTime = 0;
+    } else {
+      this.soundBreak.pause();
+      this.soundBreak.currentTime = 0;
+    }
+
     clearInterval(this.state.timerId);
     this.setState(this.props.defaultState);
   }
@@ -222,10 +236,10 @@ class Pomodoro extends React.Component {
     const value = event.target.value;
     console.log(eventType, value);
     if (eventType === 'sessionAlarm') {
-      this.setState({ sessionAlarm: value });
+      this.setState({ alarmSession: value });
       console.log('Sending session!');
     } else if (eventType === "breakAlarm") {
-      this.setState({ breakAlarm: value });
+      this.setState({ alarmBreak: value });
       console.log('Sending break!');
     }
 
@@ -237,7 +251,7 @@ class Pomodoro extends React.Component {
         <div id="pomodoro-view" className="d-flex flex-column align-items-center justify-content-evenly">
           <Title name="Pomodoro" />
           <EventsController breakLength={this.state.breakLength} sessionLength={this.state.sessionLength} eventTimeController={this.eventTimeController} playState={this.state.playState} settingsOpen={this.state.settingsOpen} />
-          <Timer timeLeft={this.state.timeLeft} settingsOpen={this.state.settingsOpen} alarmSound={(this.props.events[this.state.eventIndex] === "session") ? this.state.sessionAlarm : this.state.breakAlarm}
+          <Timer timeLeft={this.state.timeLeft} settingsOpen={this.state.settingsOpen} alarmSession={this.state.alarmSession} alarmBreak={this.state.alarmBreak}
             playState={this.state.playState} eventIndex={this.state.eventIndex} timerReset={this.timerReset} timerPlayPause={this.timerPlayPause} />
         </div>
         <div id="pomodoro-menu" className="btn-group-vertical" role="group" aria-label="First group">
@@ -272,7 +286,7 @@ class Pomodoro extends React.Component {
   }
 }
 
-Pomodoro.defaultProps = { defaultState: { breakLength: 5, sessionLength: 25, eventIndex: 0, timeLeft: [25, 0], playState: false, newEvent: false, timerId: '', settingsOpen: false, analyticsOpen: false, colorSet: 'totalDark', sessionAlarm: 'zelda-bell.mp3', breakAlarm: 'zelda-bell.mp3' }, events: events, colorThemes: colorThemes, alarmSounds: alarmSounds };
+Pomodoro.defaultProps = { defaultState: { breakLength: 5, sessionLength: 25, eventIndex: 0, timeLeft: [25, 0], playState: false, newEvent: false, timerId: '', settingsOpen: false, analyticsOpen: false, colorSet: 'totalDark', alarmSession: 'zelda-bell.mp3', alarmBreak: 'zelda-bell.mp3' }, events: events, colorThemes: colorThemes, alarmSounds: alarmSounds };
 
 function App() {
   return (
