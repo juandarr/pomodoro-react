@@ -7,7 +7,10 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 //Color themes currently available in the app
 const colorThemes = ['totalDark', 'passionVibes', 'seriousMood'];
 //Sound alarms currently available in the app
-const alarmSound = [];
+const alarmSounds = [{ name: 'Zelda bell', fileName: 'zelda-bell.mp3' }, { name: 'Tin-ton', fileName: 'tin-ton.mp3' },
+{ name: 'Tin', fileName: 'tin.mp3' }, { name: 'Plane arrival', fileName: 'plane-arrival.mp3' }, { name: 'Old train', fileName: 'old-train.mp3' },
+{ name: 'Happy break', fileName: 'happy-break.mp3' }, { name: 'Glass', fileName: 'glass.mp3' }, { name: 'Drum bass', fileName: 'drum-bass.mp3' },
+{ name: 'Drum', fileName: 'drum.mp3' }, { name: 'Bell', fileName: 'bell.mp3' }];
 
 
 const events = { 0: "session", 1: "break" };
@@ -76,7 +79,7 @@ class TimerDisplay extends React.Component {
 }
 TimerDisplay.defaultProps = { events: events };
 
-const Alarm = (props) => (<audio id="beep" src={props.alarmFile} className="alarm-timer"></audio>);
+const Alarm = (props) => (<audio id="beep" preload="metadata" src={props.alarmFile} className="alarm-timer"></audio>);
 
 
 class TimerController extends React.Component {
@@ -87,7 +90,7 @@ class TimerController extends React.Component {
         title={(this.props.playState ? "Pause" : "Start") + " timer"} onClick={this.props.timerPlayPause} disabled={this.props.settingsOpen}>{this.props.playState ? (<PauseIcon color="#000000" />) : (<PlayIcon color="#000000" />)}</button>
       <button className="d-flex justify-content-center align-items-center btn-link" data-bs-toggle="tooltip" data-bs-placement="right" id="reset"
         title="Reset timer" onClick={this.props.timerReset} disabled={this.props.settingsOpen}><ResetIcon color="#000000" /></button>
-      <Alarm alarmFile="resources/bell-tower.mp3" />
+      <Alarm alarmFile={"resources/sounds/" + this.props.alarmSound} />
     </div>);
   }
 }
@@ -96,7 +99,7 @@ class Timer extends React.Component {
   render() {
     return (<div id="timer-container" className="d-flex justify-content-evenly">
       <TimerDisplay eventIndex={this.props.eventIndex} timeLeft={this.props.timeLeft} />
-      <TimerController playState={this.props.playState} timerReset={this.props.timerReset} timerPlayPause={this.props.timerPlayPause} settingsOpen={this.props.settingsOpen} />
+      <TimerController playState={this.props.playState} timerReset={this.props.timerReset} timerPlayPause={this.props.timerPlayPause} settingsOpen={this.props.settingsOpen} alarmSound={this.props.alarmSound} />
     </div>);
   }
 }
@@ -112,6 +115,7 @@ class Pomodoro extends React.Component {
     this.timer = this.timer.bind(this);
     this.toggleSettings = this.toggleSettings.bind(this);
     this.selectTheme = this.selectTheme.bind(this);
+    this.selectAlarm = this.selectAlarm.bind(this);
   }
 
   componentDidMount() {
@@ -149,7 +153,7 @@ class Pomodoro extends React.Component {
           return { timeLeft: [state.timeLeft[0] - 1, 59] };
         } else if (state.timeLeft[1] === 1 && state.timeLeft[0] === 0) {
           this.sound.play();
-          clearInterval(this.state.timerId)
+          clearInterval(this.state.timerId);
           return { timeLeft: [0, 0], newEvent: true };
         } else if (state.timeLeft[1] > 0) {
           return { timeLeft: [state.timeLeft[0], state.timeLeft[1] - 1] };
@@ -213,13 +217,27 @@ class Pomodoro extends React.Component {
     this.setState({ colorSet: event.target.value });
   }
 
+  selectAlarm(event) {
+    const eventType = event.target.parentNode.id;
+    const value = event.target.value;
+    console.log(eventType, value);
+    if (eventType === 'sessionAlarm') {
+      this.setState({ sessionAlarm: value });
+      console.log('Sending session!');
+    } else if (eventType === "breakAlarm") {
+      this.setState({ breakAlarm: value });
+      console.log('Sending break!');
+    }
+
+  }
+
   render() {
     return (<div className="d-flex justify-content-between">
       <div id="pomodoro" className={"d-flex justify-content-evenly colorSet-" + this.state.colorSet}>
         <div id="pomodoro-view" className="d-flex flex-column align-items-center justify-content-evenly">
           <Title name="Pomodoro" />
           <EventsController breakLength={this.state.breakLength} sessionLength={this.state.sessionLength} eventTimeController={this.eventTimeController} playState={this.state.playState} settingsOpen={this.state.settingsOpen} />
-          <Timer timeLeft={this.state.timeLeft} settingsOpen={this.state.settingsOpen}
+          <Timer timeLeft={this.state.timeLeft} settingsOpen={this.state.settingsOpen} alarmSound={(this.props.events[this.state.eventIndex] === "session") ? this.state.sessionAlarm : this.state.breakAlarm}
             playState={this.state.playState} eventIndex={this.state.eventIndex} timerReset={this.timerReset} timerPlayPause={this.timerPlayPause} />
         </div>
         <div id="pomodoro-menu" className="btn-group-vertical" role="group" aria-label="First group">
@@ -232,16 +250,20 @@ class Pomodoro extends React.Component {
             <div id="colorTheme" className="feature d-flex justify-content-between align-items-center">
               <div className="stroke-thin pomodoro-tc2 feature-text">Color theme</div>
               <select name="colorThemes" id="theme" onChange={this.selectTheme}>
-                {this.props.colorThemes.map((input) => (<option value={input}>{input}</option>))}
+                {this.props.colorThemes.map((input, index) => (<option value={input} key={index}>{input}</option>))}
               </select>
             </div>
             <div id="sessionAlarm" className="feature d-flex justify-content-between align-items-center">
               <div className="stroke-thin session-tc feature-text">Session alarm</div>
-              <select></select>
+              <select name="sessionSound" id="sessionSounds" onChange={this.selectAlarm}>
+                {this.props.alarmSounds.map((input, index) => (<option value={input.fileName} key={index}>{input.name}</option>))}
+              </select>
             </div>
             <div id="breakAlarm" className="feature d-flex justify-content-between align-items-center">
               <div className="stroke-thin break-tc feature-text">Break alarm</div>
-              <select></select>
+              <select name="breakSound" id="breakSounds" onChange={this.selectAlarm}>
+                {this.props.alarmSounds.map((input, index) => (<option value={input.fileName} key={index}>{input.name}</option>))}
+              </select>
             </div>
           </div>
         </div>
@@ -250,7 +272,7 @@ class Pomodoro extends React.Component {
   }
 }
 
-Pomodoro.defaultProps = { defaultState: { breakLength: 5, sessionLength: 25, eventIndex: 0, timeLeft: [25, 0], playState: false, newEvent: false, timerId: '', settingsOpen: false, analyticsOpen: false, colorSet: 'totalDark' }, events: events, colorThemes: colorThemes };
+Pomodoro.defaultProps = { defaultState: { breakLength: 5, sessionLength: 25, eventIndex: 0, timeLeft: [25, 0], playState: false, newEvent: false, timerId: '', settingsOpen: false, analyticsOpen: false, colorSet: 'totalDark', sessionAlarm: 'zelda-bell.mp3', breakAlarm: 'zelda-bell.mp3' }, events: events, colorThemes: colorThemes, alarmSounds: alarmSounds };
 
 function App() {
   return (
