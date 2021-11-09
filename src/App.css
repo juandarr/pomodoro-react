@@ -237,7 +237,7 @@ i {
 
 select {
   width: 10vmin;
-  height: 2vmin;
+  height: auto;
   font-size: 1.3vmin !important;
 }
 

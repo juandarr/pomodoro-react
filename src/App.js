@@ -5,7 +5,7 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 
 //Resources
 //Color themes currently available in the app
-const colorThemesArray = ['totalDark', 'passionVibes', 'seriousMood'];
+const colorThemes = ['totalDark', 'passionVibes', 'seriousMood'];
 //Sound alarms currently available in the app
 const alarmSound = [];
 
@@ -226,23 +226,21 @@ class Pomodoro extends React.Component {
           <button onClick={this.toggleSettings} className="d-flex justify-content-center align-items-center btn-link tab btn-tab-start" ><i className="bi bi-gear-wide-connected"></i></button>
           <button className="d-flex justify-content-center align-items-center btn-link tab btn-tab-end"><i className="bi bi-graph-up"></i></button>
         </div>
-        <div id="tab-view" style={{ visibility: 'visible' }} className="d-flex flex-column justify-content-start align-items-center">
+        <div id="tab-view" style={{ visibility: 'hidden' }} className="d-flex flex-column justify-content-start align-items-center">
           <h2 className="stroke-thick settings-title">Settings</h2>
           <div id="features">
             <div id="colorTheme" className="feature d-flex justify-content-between align-items-center">
-              <h3 className="stroke-thin event-label pomodoro-tc2 feature-text">Color theme</h3>
+              <div className="stroke-thin pomodoro-tc2 feature-text">Color theme</div>
               <select name="colorThemes" id="theme" onChange={this.selectTheme}>
-                <option value='totalDark'>totalDark</option>
-                <option value='seriousMood'>seriousMood</option>
-                <option value='passionVibes'>passionVibes</option>
+                {this.props.colorThemes.map((input) => (<option value={input}>{input}</option>))}
               </select>
             </div>
             <div id="sessionAlarm" className="feature d-flex justify-content-between align-items-center">
-              <h3 className="stroke-thin event-label session-tc feature-text">Session alarm</h3>
+              <div className="stroke-thin session-tc feature-text">Session alarm</div>
               <select></select>
             </div>
             <div id="breakAlarm" className="feature d-flex justify-content-between align-items-center">
-              <h3 className="stroke-thin event-label break-tc feature-text">Break alarm</h3>
+              <div className="stroke-thin break-tc feature-text">Break alarm</div>
               <select></select>
             </div>
           </div>
@@ -252,7 +250,7 @@ class Pomodoro extends React.Component {
   }
 }
 
-Pomodoro.defaultProps = { defaultState: { breakLength: 5, sessionLength: 25, eventIndex: 0, timeLeft: [25, 0], playState: false, newEvent: false, timerId: '', settingsOpen: false, analyticsOpen: false, colorSet: 'totalDark' }, events: events };
+Pomodoro.defaultProps = { defaultState: { breakLength: 5, sessionLength: 25, eventIndex: 0, timeLeft: [25, 0], playState: false, newEvent: false, timerId: '', settingsOpen: false, analyticsOpen: false, colorSet: 'totalDark' }, events: events, colorThemes: colorThemes };
 
 function App() {
   return (
