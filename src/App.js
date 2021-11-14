@@ -138,7 +138,7 @@ class Pomodoro extends React.Component {
           const newIndex = (state.eventIndex + 1) % 2;
           let newTimeLeft;
           let tmpCounter;
-          let updateState = { eventIndex: newIndex, newEvent: false };
+          const updateState = { eventIndex: newIndex, newEvent: false };
           if (this.props.events[newIndex] === 'break') {
             newTimeLeft = [state.breakLength, 0];
             tmpCounter = state.sessionCount += 1;
@@ -190,8 +190,16 @@ class Pomodoro extends React.Component {
 
     clearInterval(this.state.timerId);
     const tmpState = { ...this.props.defaultState };
+    //Preserve previous defined configurations
     tmpState.sessionCount = this.state.sessionCount;
     tmpState.breakCount = this.state.breakCount;
+    tmpState.colorSet = this.state.colorSet;
+    tmpState.alarmBreak = this.state.alarmBreak;
+    tmpState.alarmSession = this.state.alarmSession;
+    tmpState.sessionCount = this.state.sessionCount;
+    tmpState.breakCount = this.state.breakCount;
+
+
     this.setState(tmpState);
   }
 
