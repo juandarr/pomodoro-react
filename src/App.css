@@ -242,11 +242,11 @@ select {
 
 #pomodoro-event-counter {
   position: absolute;
-  min-width: 5vmin;
+  width: auto;
   height: 7vmin;
   left: 0.5vmin;
   top:2vmin;
-  background-color:white;
+  background-color:var(--pomodoro-bg);
   border-radius: 0.5vmin;
 }
 
@@ -269,11 +269,22 @@ select {
   font-size: 1.6vmin;
   font-weight: bold;
   padding-right: 0.3vmin;
+  padding-left: 0.4vmin;
 }
 
 /*Stroke of text for centain header in UI: e.g., title and main elements*/
+.stroke-ultra-thin{
+  -webkit-text-stroke-width: 0.02vmin;
+  -webkit-text-stroke-color: black;
+}
+
 .stroke-thin{
   -webkit-text-stroke-width: 0.06vmin;
+  -webkit-text-stroke-color: black;
+}
+
+.stroke-thick{
+  -webkit-text-stroke-width: 0.1vmin;
   -webkit-text-stroke-color: black;
 }
 
