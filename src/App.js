@@ -57,8 +57,8 @@ class EventLength extends React.Component {
 class EventsController extends React.Component {
   render() {
     return (<div id="controllers" className="d-flex justify-content-evenly">
-      <EventLength event="break" color="break-tc" timeLength={this.props.breakLength} eventTimeController={this.props.eventTimeController} playState={this.props.playState} settingsOpen={this.props.settingsOpen} />
       <EventLength event="session" color="session-tc" timeLength={this.props.sessionLength} eventTimeController={this.props.eventTimeController} playState={this.props.playState} settingsOpen={this.props.settingsOpen} />
+      <EventLength event="break" color="break-tc" timeLength={this.props.breakLength} eventTimeController={this.props.eventTimeController} playState={this.props.playState} settingsOpen={this.props.settingsOpen} />
     </div>);
   }
 }
