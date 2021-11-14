@@ -260,7 +260,7 @@ class Pomodoro extends React.Component {
       <div id="pomodoro" className={"d-flex justify-content-evenly colorSet-" + this.state.colorSet}>
         <div id="pomodoro-event-counter" className="d-flex flex-column justify-content-center align-items-center">
           <div className="d-flex justify-content-between align-items-center session-count"><i class="bi bi-person-workspace i-event-counter"></i><div className="counter">{this.state.sessionCount}</div></div>
-          <div className="d-flex justify-content-between align-items-center break-count"><i class="bi bi-emoji-sunglasses i-event-counter"></i><div className="counter">{/*this.state.breakCount*/}10</div></div>
+          <div className="d-flex justify-content-between align-items-center break-count"><i class="bi bi-emoji-sunglasses i-event-counter"></i><div className="counter">{this.state.breakCount}</div></div>
         </div>
         <div id="pomodoro-view" className="d-flex flex-column align-items-center justify-content-evenly">
           <Title name="Pomodoro" />
