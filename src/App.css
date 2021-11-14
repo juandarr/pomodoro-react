@@ -97,6 +97,13 @@ svg {
   height: 6vmin;
 }
 
+/** Style of select tag elements **/
+select {
+  width: 10vmin;
+  height: auto;
+  font-size: 1.3vmin !important;
+}
+
 .down {
   transform: rotate(180deg);
 }
@@ -110,14 +117,6 @@ svg {
   height: 5vmin;
   border-radius: 0.75vmin !important;
 }
-
-i {
-  width: 100%;
-  font-size: 3vmin;
-  color: var(--pomodoro-bg);
-}
-
-
 
 #pomodoro {
   position:relative;
@@ -185,6 +184,12 @@ i {
   width: 100%;
 }
 
+.i-settings {
+  width: 100%;
+  font-size: 3vmin;
+  color: var(--pomodoro-bg);
+}
+
 .btn-tab {
   border-radius: 0px !important;
 }
@@ -235,20 +240,40 @@ i {
   font-size: 3vmin !important;
 }
 
-select {
-  width: 10vmin;
-  height: auto;
-  font-size: 1.3vmin !important;
+#pomodoro-event-counter {
+  position: absolute;
+  min-width: 5vmin;
+  height: 7vmin;
+  left: 0.5vmin;
+  top:2vmin;
+  background-color:white;
+  border-radius: 0.5vmin;
+}
+
+.i-event-counter {
+  font-size: 2.3vmin;
+  padding-left: 0.3vmin;
+}
+
+.break-count {
+  width: 100%;
+  color: var(--break-tc);
+}
+
+.session-count {
+  width: 100%;
+  color: var(--session-tc);
+}
+
+.counter {
+  font-size: 1.6vmin;
+  font-weight: bold;
+  padding-right: 0.3vmin;
 }
 
 /*Stroke of text for centain header in UI: e.g., title and main elements*/
 .stroke-thin{
   -webkit-text-stroke-width: 0.06vmin;
-  -webkit-text-stroke-color: black;
-}
-
-.stroke-thick{
-  -webkit-text-stroke-width: 0.1vmin;
   -webkit-text-stroke-color: black;
 }
 

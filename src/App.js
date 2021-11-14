@@ -137,12 +137,19 @@ class Pomodoro extends React.Component {
         this.setState((state) => {
           const newIndex = (state.eventIndex + 1) % 2;
           let newTimeLeft;
+          let tmpCounter;
+          let updateState = { eventIndex: newIndex, newEvent: false };
           if (this.props.events[newIndex] === 'break') {
             newTimeLeft = [state.breakLength, 0];
+            tmpCounter = state.sessionCount += 1;
+            updateState['sessionCount'] = tmpCounter;
           } else if (this.props.events[newIndex] === 'session') {
             newTimeLeft = [state.sessionLength, 0];
+            tmpCounter = state.breakCount += 1;
+            updateState['breakCount'] = tmpCounter;
           }
-          return { eventIndex: newIndex, timeLeft: newTimeLeft, newEvent: false };
+          updateState['timeLeft'] = newTimeLeft;
+          return updateState;
         });
         this.timer();
       }, 1000);
@@ -182,7 +189,10 @@ class Pomodoro extends React.Component {
     }
 
     clearInterval(this.state.timerId);
-    this.setState(this.props.defaultState);
+    const tmpState = { ...this.props.defaultState };
+    tmpState.sessionCount = this.state.sessionCount;
+    tmpState.breakCount = this.state.breakCount;
+    this.setState(tmpState);
   }
 
   timerPlayPause() {
@@ -248,6 +258,10 @@ class Pomodoro extends React.Component {
   render() {
     return (<div className="d-flex justify-content-between">
       <div id="pomodoro" className={"d-flex justify-content-evenly colorSet-" + this.state.colorSet}>
+        <div id="pomodoro-event-counter" className="d-flex flex-column justify-content-center align-items-center">
+          <div className="d-flex justify-content-between align-items-center session-count"><i class="bi bi-person-workspace i-event-counter"></i><div className="counter">{this.state.sessionCount}</div></div>
+          <div className="d-flex justify-content-between align-items-center break-count"><i class="bi bi-emoji-sunglasses i-event-counter"></i><div className="counter">{/*this.state.breakCount*/}10</div></div>
+        </div>
         <div id="pomodoro-view" className="d-flex flex-column align-items-center justify-content-evenly">
           <Title name="Pomodoro" />
           <EventsController breakLength={this.state.breakLength} sessionLength={this.state.sessionLength} eventTimeController={this.eventTimeController} playState={this.state.playState} settingsOpen={this.state.settingsOpen} />
@@ -255,8 +269,8 @@ class Pomodoro extends React.Component {
             playState={this.state.playState} eventIndex={this.state.eventIndex} timerReset={this.timerReset} timerPlayPause={this.timerPlayPause} />
         </div>
         <div id="pomodoro-menu" className="btn-group-vertical" role="group" aria-label="First group">
-          <button onClick={this.toggleSettings} className="d-flex justify-content-center align-items-center btn-link tab btn-tab-start" ><i className="bi bi-gear-wide-connected"></i></button>
-          <button className="d-flex justify-content-center align-items-center btn-link tab btn-tab-end"><i className="bi bi-graph-up"></i></button>
+          <button onClick={this.toggleSettings} className="d-flex justify-content-center align-items-center btn-link tab btn-tab-start" ><i className="bi bi-gear-wide-connected i-settings"></i></button>
+          <button className="d-flex justify-content-center align-items-center btn-link tab btn-tab-end"><i className="bi bi-graph-up i-settings"></i></button>
         </div>
         <div id="tab-view" style={{ visibility: 'hidden' }} className="d-flex flex-column justify-content-start align-items-center">
           <h2 className="stroke-thick settings-title">Settings</h2>
@@ -282,11 +296,11 @@ class Pomodoro extends React.Component {
           </div>
         </div>
       </div>
-    </div>);
+    </div >);
   }
 }
 
-Pomodoro.defaultProps = { defaultState: { breakLength: 5, sessionLength: 25, eventIndex: 0, timeLeft: [25, 0], playState: false, newEvent: false, timerId: '', settingsOpen: false, analyticsOpen: false, colorSet: 'totalDark', alarmSession: 'zelda-bell.mp3', alarmBreak: 'zelda-bell.mp3' }, events: events, colorThemes: colorThemes, alarmSounds: alarmSounds };
+Pomodoro.defaultProps = { defaultState: { breakLength: 5, sessionLength: 25, eventIndex: 0, timeLeft: [25, 0], playState: false, newEvent: false, timerId: '', settingsOpen: false, analyticsOpen: false, colorSet: 'totalDark', alarmSession: 'zelda-bell.mp3', alarmBreak: 'zelda-bell.mp3', breakCount: 0, sessionCount: 0 }, events: events, colorThemes: colorThemes, alarmSounds: alarmSounds };
 
 function App() {
   return (
