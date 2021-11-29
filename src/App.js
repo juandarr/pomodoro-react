@@ -180,6 +180,7 @@ class Pomodoro extends React.Component {
 
 
   timerReset() {
+
     if (this.props.events[this.state.eventIndex] === 'session') {
       this.soundSession.pause();
       this.soundSession.currentTime = 0;
@@ -254,10 +255,17 @@ class Pomodoro extends React.Component {
     const value = event.target.value;
     console.log(eventType, value);
     if (eventType === 'sessionAlarm') {
-      this.setState({ alarmSession: value });
+
+      this.setState((state, props) => {
+        setTimeout(() => { this.soundSession.play(); }, 100);
+        return { alarmSession: value };
+      });
       console.log('Sending session!');
     } else if (eventType === "breakAlarm") {
-      this.setState({ alarmBreak: value });
+      this.setState((state, props) => {
+        setTimeout(() => { this.soundBreak.play(); }, 100);
+        return { alarmBreak: value };
+      });
       console.log('Sending break!');
     }
 
@@ -267,8 +275,8 @@ class Pomodoro extends React.Component {
     return (<div className="d-flex justify-content-between">
       <div id="pomodoro" className={"d-flex justify-content-evenly colorSet-" + this.state.colorSet}>
         <div id="pomodoro-event-counter" className="d-flex flex-column justify-content-center align-items-center">
-          <div className="d-flex justify-content-start align-items-center session-count stroke-ultra-thin"><i class="bi bi-person-workspace i-event-counter"></i><div className="counter">{this.state.sessionCount}</div></div>
-          <div className="d-flex justify-content-start align-items-center break-count stroke-ultra-thin"><i class="bi bi-emoji-sunglasses i-event-counter"></i><div className="counter">{this.state.breakCount}</div></div>
+          <div className="d-flex justify-content-start align-items-center session-count stroke-ultra-thin"><i className="bi bi-person-workspace i-event-counter"></i><div className="counter">{this.state.sessionCount}</div></div>
+          <div className="d-flex justify-content-start align-items-center break-count stroke-ultra-thin"><i className="bi bi-emoji-sunglasses i-event-counter"></i><div className="counter">{this.state.breakCount}</div></div>
         </div>
         <div id="pomodoro-view" className="d-flex flex-column align-items-center justify-content-evenly">
           <Title name="Pomodoro" />
