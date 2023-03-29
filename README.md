@@ -4,9 +4,8 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Installation
 
-Make sure you have installed `yarn` and `react-scripts`. For the former one install globally with `npm 
-install -g yarn`. Once you have `yarn`, in the main repository run `yarn install`. Then install 
-`react-scripts` with `yarn add react-scripts`. This is a temporary configuration since I am planning to move the app to a more modern set of tools: `vite` as a replacement for `create-react-app` and Typescript.
+Make sure you have installed `yarn`. For the former one install globally with `npm 
+install -g yarn`. Once you have `yarn`, in the main repository run `yarn install`. Once this is done you will be able to run any of the available scripts.This is a temporary configuration since I am planning to move the app to a more modern set of tools: `vite` as a replacement for `create-react-app` and Typescript.
 
 ## Available Scripts
 

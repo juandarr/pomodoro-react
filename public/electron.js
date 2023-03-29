@@ -6,13 +6,16 @@ const url = require("url");
 // Create the native browser window.
 function createWindow() {
     const mainWindow = new BrowserWindow({
-        width: 400,
-        height: 500,
+        //width: 400,
+        //height: 500,
+        //fullscreen: true,
         // Set the path of an additional "preload" script that can be used to
         // communicate between node-land and browser-land.
         webPreferences: {
             preload: path.join(__dirname, "preload.js"),
         },
+        frame: false,
+        transparent: true
     });
 
     // In production, set the initial browser path to the local bundle generated

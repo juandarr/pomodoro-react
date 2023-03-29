@@ -1,5 +1,5 @@
 {
-  "name": "pomodoro",
+  "name": "my_pomodoro",
   "version": "0.1.0",
   "private": true,
   "author": {
@@ -58,8 +58,8 @@
     "wait-on": "^6.0.0"
   },
   "build": {
-    "appId": "com.electron.myCalculator",
-    "productName": "myCalculator",
+    "appId": "com.electron.myPomodoro",
+    "productName": "myPomodoro",
     "files": [
       "build/**/*",
       "node_modules/**/*"
