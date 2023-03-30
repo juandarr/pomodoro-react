@@ -13,23 +13,45 @@ const alarmSounds = [{ name: 'Zelda bell', fileName: 'zelda-bell.mp3' }, { name:
 { name: 'Drum', fileName: 'drum.mp3' }, { name: 'Bell', fileName: 'bell.mp3' }];
 
 
-const events = { 0: "session", 1: "break" };
+const events = { "0": "session", "1": "break" };
 
-//Main icons
-const UpArrowIcon = (props) => (<svg className={"iconColor " + props.down} xmlns="http://www.w3.org/2000/svg" enableBackground="new 0 0 24 24" height="24px" viewBox="0 0 24 24" width="24px" fill={props.color}><g><rect fill="none" height="24" width="24" /></g><g><g><polygon points="6,17.59 7.41,19 12,14.42 16.59,19 18,17.59 12,11.59" /><polygon points="6,11 7.41,12.41 12,7.83 16.59,12.41 18,11 12,5" /></g></g></svg>);
+type UpArrowIconProps = {
+  down: string,
+  color: string
+}
 
-const PlayIcon = (props) => (<svg className={"iconColor"} xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill={props.color}><path d="M0 0h24v24H0V0z" fill="none" /><path d="M10 16.5l6-4.5-6-4.5zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z" /></svg>);
+type buttonProps = {
+  color: string
+}
 
-const PauseIcon = (props) => (<svg className={"iconColor"} xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill={props.color}><path d="M0 0h24v24H0V0z" fill="none" /><path d="M13 8h2v8h-2zM9 8h2v8H9zm3 14c5.52 0 10-4.48 10-10S17.52 2 12 2 2 6.48 2 12s4.48 10 10 10zm0-18c4.41 0 8 3.59 8 8s-3.59 8-8 8-8-3.59-8-8 3.59-8 8-8z" /></svg>);
+//Main action buttons
+const UpArrowIcon = (props: UpArrowIconProps) => (<svg className={"iconColor " + props.down} xmlns="http://www.w3.org/2000/svg" enableBackground="new 0 0 24 24" height="24px" viewBox="0 0 24 24" width="24px" fill={props.color}><g><rect fill="none" height="24" width="24" /></g><g><g><polygon points="6,17.59 7.41,19 12,14.42 16.59,19 18,17.59 12,11.59" /><polygon points="6,11 7.41,12.41 12,7.83 16.59,12.41 18,11 12,5" /></g></g></svg>);
 
-const ResetIcon = (props) => (<svg className={"iconColor"} xmlns="http://www.w3.org/2000/svg" enableBackground="new 0 0 24 24" height="24px" viewBox="0 0 24 24" width="24px" fill={props.color}><g><path d="M0,0h24v24H0V0z" fill="none" /></g><g><g><path d="M12,5V2L8,6l4,4V7c3.31,0,6,2.69,6,6c0,2.97-2.17,5.43-5,5.91v2.02c3.95-0.49,7-3.85,7-7.93C20,8.58,16.42,5,12,5z" /><path d="M6,13c0-1.65,0.67-3.15,1.76-4.24L6.34,7.34C4.9,8.79,4,10.79,4,13c0,4.08,3.05,7.44,7,7.93v-2.02 C8.17,18.43,6,15.97,6,13z" /></g></g></svg>);
+const PlayIcon = (props: buttonProps) => (<svg className={"iconColor"} xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill={props.color}><path d="M0 0h24v24H0V0z" fill="none" /><path d="M10 16.5l6-4.5-6-4.5zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z" /></svg>);
+
+const PauseIcon = (props: buttonProps) => (<svg className={"iconColor"} xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill={props.color}><path d="M0 0h24v24H0V0z" fill="none" /><path d="M13 8h2v8h-2zM9 8h2v8H9zm3 14c5.52 0 10-4.48 10-10S17.52 2 12 2 2 6.48 2 12s4.48 10 10 10zm0-18c4.41 0 8 3.59 8 8s-3.59 8-8 8-8-3.59-8-8 3.59-8 8-8z" /></svg>);
+
+const ResetIcon = (props: buttonProps) => (<svg className={"iconColor"} xmlns="http://www.w3.org/2000/svg" enableBackground="new 0 0 24 24" height="24px" viewBox="0 0 24 24" width="24px" fill={props.color}><g><path d="M0,0h24v24H0V0z" fill="none" /></g><g><g><path d="M12,5V2L8,6l4,4V7c3.31,0,6,2.69,6,6c0,2.97-2.17,5.43-5,5.91v2.02c3.95-0.49,7-3.85,7-7.93C20,8.58,16.42,5,12,5z" /><path d="M6,13c0-1.65,0.67-3.15,1.76-4.24L6.34,7.34C4.9,8.79,4,10.79,4,13c0,4.08,3.05,7.44,7,7.93v-2.02 C8.17,18.43,6,15.97,6,13z" /></g></g></svg>);
+
+type TitleProps = {
+  name: string
+}
 
 //Title component
-const Title = (props) => (<div id="title">
+const Title = (props: TitleProps) => (<div id="title">
   <h1 className="pomodoro-tc2 stroke-thick"><em className="pomodoro-tc1">my</em>{props.name}</h1>
 </div>);
 
-class EventLength extends React.Component {
+type EventLengthProps = {
+  event: string,
+  color: string,
+  timeLength: number,
+  playState: boolean,
+  settingsOpen: boolean,
+  eventTimeController: (event: any) => void, 
+}
+
+class EventLength extends React.Component<EventLengthProps> {
 
   render() {
     const event = this.props.event;
@@ -40,7 +62,7 @@ class EventLength extends React.Component {
         <button className="d-flex justify-content-center align-items-center btn-link"
           id={event + "-increment"} data-bs-toggle="tooltip" data-bs-placement="right"
           title={event[0].toUpperCase() + event.slice(1) + " time up"} onClick={this.props.eventTimeController} disabled={this.props.playState || this.props.settingsOpen} value='+'>
-          <UpArrowIcon color="#000000" />
+          <UpArrowIcon color="#000000" down=""/>
           {/*<img src="resources/arrow-up.svg" alt={event + " time up"} />*/}
         </button>
         <div id={event + "-length"} className={"d-flex justify-content-center event-length stroke-thin " + color}>{this.props.timeLength}</div>
@@ -54,7 +76,15 @@ class EventLength extends React.Component {
   }
 }
 
-class EventsController extends React.Component {
+type EventsControllerProps = {
+  sessionLength: number,
+  breakLength: number,
+  playState: boolean,
+  settingsOpen: boolean,
+  eventTimeController: (event: any) => void, 
+}
+
+class EventsController extends React.Component<EventsControllerProps> {
   render() {
     return (<div id="controllers" className="d-flex justify-content-evenly">
       <EventLength event="session" color="session-tc" timeLength={this.props.sessionLength} eventTimeController={this.props.eventTimeController} playState={this.props.playState} settingsOpen={this.props.settingsOpen} />
@@ -63,9 +93,19 @@ class EventsController extends React.Component {
   }
 }
 
-class TimerDisplay extends React.Component {
+type TimerDisplayProps = typeof TimerDisplay.defaultProps & {
+  eventIndex: number,
+  timeLeft: number[]
+}
 
-  timeRender(ar) {
+type MapStrStr = {
+  [key: string]: string;
+}
+
+class TimerDisplay extends React.Component<TimerDisplayProps> {
+  static defaultProps = { events: events as MapStrStr};
+
+  timeRender(ar: number[]) {
     return (<div className={'stroke-thin ' + (this.props.eventIndex === 0 ? "session-tc" : "break-tc")} id="time-left">{(ar[0] < 10 ? ("0" + ar[0]) : ar[0]) + ":" + (ar[1] < 10 ? ("0" + ar[1]) : ar[1])}</div>);
   }
 
@@ -77,12 +117,25 @@ class TimerDisplay extends React.Component {
     </div>);
   }
 }
-TimerDisplay.defaultProps = { events: events };
 
-const Alarm = (props) => (<audio id={props.id} preload="metadata" src={props.alarmSound} className="alarm-timer"></audio>);
+type AlarmProps = {
+  id: string,
+  alarmSound: string
+}
+
+const Alarm = (props: AlarmProps) => (<audio id={props.id} preload="metadata" src={props.alarmSound} className="alarm-timer"></audio>);
 
 
-class TimerController extends React.Component {
+type TimerControllerProps = {
+  playState: boolean,
+  settingsOpen: boolean,
+  timerPlayPause: () => void,
+  timerReset:() => void,
+  alarmSession: string,
+  alarmBreak: string
+}
+
+class TimerController extends React.Component<TimerControllerProps> {
 
   render() {
     return (<div id="timer-controls" className="d-flex flex-column justify-content-evenly">
@@ -96,7 +149,18 @@ class TimerController extends React.Component {
   }
 }
 
-class Timer extends React.Component {
+type TimerProps = {
+  eventIndex: number,
+  timeLeft: number[],
+  playState: boolean,
+  settingsOpen: boolean,
+  timerReset: () => void,
+  timerPlayPause: () => void,
+  alarmSession: string,
+  alarmBreak: string
+}
+
+class Timer extends React.Component<TimerProps> {
   render() {
     return (<div id="timer-container" className="d-flex justify-content-evenly">
       <TimerDisplay eventIndex={this.props.eventIndex} timeLeft={this.props.timeLeft} />
@@ -106,9 +170,22 @@ class Timer extends React.Component {
   }
 }
 
-class Pomodoro extends React.Component {
+type PomodoroProps = typeof Pomodoro.defaultProps; 
 
-  constructor(props) {
+type PomodoroStates = typeof Pomodoro.defaultProps.defaultState;
+  
+class Pomodoro extends React.Component<PomodoroProps, PomodoroStates> {
+
+  static defaultProps = { defaultState: { breakLength: 5, sessionLength: 25, eventIndex: 0, 
+      timeLeft: [25, 0], playState: false, newEvent: false, timerId: 0, settingsOpen: false, 
+      analyticsOpen: false, colorSet: 'totalDark', alarmSession: 'zelda-bell.mp3', 
+      alarmBreak: 'zelda-bell.mp3', breakCount: 0, sessionCount: 0 }, events: events as MapStrStr, 
+      colorThemes: colorThemes, alarmSounds: alarmSounds };
+  
+  private soundSession: HTMLAudioElement  = new Audio();
+  private soundBreak: HTMLAudioElement = new Audio();
+
+  constructor(props: PomodoroProps) {
     super(props);
     this.state = this.props.defaultState;
     this.eventTimeController = this.eventTimeController.bind(this);
@@ -121,8 +198,8 @@ class Pomodoro extends React.Component {
   }
 
   componentDidMount() {
-    this.soundSession = document.getElementById('beep');
-    this.soundBreak = document.getElementById('beepBreak');
+    this.soundSession = document.getElementById('beep') as HTMLAudioElement;
+    this.soundBreak = document.getElementById('beepBreak') as HTMLAudioElement;
   }
 
   componentDidUpdate() {
@@ -135,17 +212,18 @@ class Pomodoro extends React.Component {
 
       setTimeout(() => {
         this.setState((state) => {
-          const newIndex = (state.eventIndex + 1) % 2;
-          let newTimeLeft;
+          const newIndex: number = (state.eventIndex + 1) % 2;
           let tmpCounter;
-          const updateState = { eventIndex: newIndex, newEvent: false };
+          const updateState = { eventIndex: newIndex, newEvent: false, sessionCount: state.sessionCount,
+          breakCount: state.breakCount, timeLeft: state.timeLeft};
+          let newTimeLeft = state.timeLeft;
           if (this.props.events[newIndex] === 'break') {
             newTimeLeft = [state.breakLength, 0];
-            tmpCounter = state.sessionCount += 1;
+            tmpCounter = state.sessionCount + 1;
             updateState['sessionCount'] = tmpCounter;
           } else if (this.props.events[newIndex] === 'session') {
             newTimeLeft = [state.sessionLength, 0];
-            tmpCounter = state.breakCount += 1;
+            tmpCounter = state.breakCount + 1;
             updateState['breakCount'] = tmpCounter;
           }
           updateState['timeLeft'] = newTimeLeft;
@@ -159,8 +237,9 @@ class Pomodoro extends React.Component {
   timer() {
     const timerId = setInterval(() => {
       this.setState((state) => {
+        const updateState = { newEvent: state.newEvent, timeLeft: state.timeLeft};
         if (state.timeLeft[1] === 0 && state.timeLeft[0] > 0) {
-          return { timeLeft: [state.timeLeft[0] - 1, 59] };
+          updateState['timeLeft'] = [state.timeLeft[0] - 1, 59];
         } else if (state.timeLeft[1] === 1 && state.timeLeft[0] === 0) {
           if (this.props.events[this.state.eventIndex] === 'session') {
             this.soundSession.play();
@@ -169,10 +248,12 @@ class Pomodoro extends React.Component {
           }
 
           clearInterval(this.state.timerId);
-          return { timeLeft: [0, 0], newEvent: true };
+          updateState['timeLeft'] = [0,0];
+          updateState['newEvent'] = true;
         } else if (state.timeLeft[1] > 0) {
-          return { timeLeft: [state.timeLeft[0], state.timeLeft[1] - 1] };
+          updateState['timeLeft'] = [state.timeLeft[0], state.timeLeft[1] - 1];
         }
+        return updateState;
       });
     }, 1000);
     this.setState({ timerId: timerId });
@@ -210,12 +291,13 @@ class Pomodoro extends React.Component {
     this.setState({ playState: newPlayState });
   }
 
-  eventTimeController(event) {
+  eventTimeController(event:any) {
     const valueEvent = event.target.value;
     const lengthEvent = event.target.id.split('-')[0] === 'break' ? 'breakLength' : 'sessionLength';
     const currentEvent = this.props.events[this.state.eventIndex] + 'Length';
     this.setState((state) => {
-      const newState = {};
+      let newState = {'timeLeft': state.timeLeft, 'sessionLength': state.sessionLength, 
+        'breakLength':state.breakLength};
       let newLength;
       if (valueEvent === '+') {
         newLength = state[lengthEvent] <= 59 ? (state[lengthEvent] + 1) : state[lengthEvent];
@@ -230,9 +312,9 @@ class Pomodoro extends React.Component {
     });
   }
 
-  toggleSettings(event) {
+  toggleSettings(event:any) {
     const tmp = event.target;
-    const settings = document.getElementById('tab-view');
+    const settings: HTMLElement = document.getElementById('tab-view') as HTMLElement;
     if (settings.style.visibility === 'hidden') {
       settings.style.visibility = 'visible';
       tmp.style.setProperty("border-top-left-radius", '0px', 'important');
@@ -246,11 +328,11 @@ class Pomodoro extends React.Component {
     }
   }
 
-  selectTheme(event) {
+  selectTheme(event:any) {
     this.setState({ colorSet: event.target.value });
   }
 
-  selectAlarm(event) {
+  selectAlarm(event: any) {
     const eventType = event.target.parentNode.id;
     const value = event.target.value;
     console.log(eventType, value);
@@ -315,8 +397,6 @@ class Pomodoro extends React.Component {
     </div >);
   }
 }
-
-Pomodoro.defaultProps = { defaultState: { breakLength: 5, sessionLength: 25, eventIndex: 0, timeLeft: [25, 0], playState: false, newEvent: false, timerId: '', settingsOpen: false, analyticsOpen: false, colorSet: 'totalDark', alarmSession: 'zelda-bell.mp3', alarmBreak: 'zelda-bell.mp3', breakCount: 0, sessionCount: 0 }, events: events, colorThemes: colorThemes, alarmSounds: alarmSounds };
 
 function App() {
   return (
