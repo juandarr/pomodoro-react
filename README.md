@@ -7,7 +7,7 @@ This project was bootstrapped with [Vite](https://vitejs.dev/guide/).
 1) Make sure you have `yarn` installed. If not, execute `npm install -g yarn`.
 2) Clone this repository to your path of choice
 3) Install all project dependencies with `yarn install`
-4) Run the software: `yarn dev`, or use any of the available scripts in `package.json`
+4) Run the software: `yarn dev`, or use any of the available commands in `package.json` via `npx`
 
 
 ## Available Scripts
